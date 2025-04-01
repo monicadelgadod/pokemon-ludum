@@ -1,24 +1,37 @@
 <template>
-    <section v-if="estPortat" class="flex flex-col justify-center items-center w-screen h-screen">
+    <section v-if="estPortat || temerePokemon.id === null" class="flex flex-col justify-center items-center w-screen h-screen">
         <h1 class="text-3xl">Espere, por favor</h1>
         <h3 class="animate-pulse">Cargando Pokemons</h3>
     </section>
 
     <section v-else class="flex flex-col justify-center items-center w-screen h-screen">
         <h1 class="m-5">¿Quién es este Pokemon?</h1>
+        <!-- <h3>{{ temerePokemon }}</h3> -->
 
-        <Pokemonimago/>
-        <PokemonOptiones/>
+        <h3 class="capitalize my-3">{{ ludumStatus }}</h3>
+
+        <PokemonImago :pokemon-id="temerePokemon.id" :revelare-pokemon="ludumStatus !== ludumStatus.Ludit" />
+        <PokemonOptiones :optiones="optiones" @electus-optio="examineResponsio"/>
 
     </section>
 </template>
 
 <script setup lang="ts">
-import Pokemonimago from '../components/PokemonImago.vue';
+import PokemonImago from '../components/PokemonImago.vue';
 import PokemonOptiones from '../components/PokemonOptiones.vue';
 import { usePokemonLudum } from '../composables/usePokemonLudum';
 
-const {estPortat , ludumStatus} = usePokemonLudum();
+const {
+    ludumStatus, 
+    estPortat, 
+    temerePokemon, 
+    pokemonOptiones: optiones,
+    examineResponsio
+ } = usePokemonLudum();
+
+// const cumElectusOptio = (valorem: number) => {
+
+// }
 
 
 </script>
